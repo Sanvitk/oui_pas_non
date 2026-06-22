@@ -331,7 +331,10 @@ function NonModal({ onClose, onChangeAnswer }: { onClose: () => void; onChangeAn
 export default function Page() {
   const [modal, setModal] = useState<ModalType>(null);
 
-  const handleOui = useCallback(() => setModal("oui"), []);
+  const handleOui = useCallback(() => {
+    setModal("oui");
+    fetch("/api/notify", { method: "POST" }).catch(() => {});
+  }, []);
   const handleNon = useCallback(() => setModal("non"), []);
   const handleClose = useCallback(() => setModal(null), []);
   const handleChangeToOui = useCallback(() => setModal("oui"), []);
